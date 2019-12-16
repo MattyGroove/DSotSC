@@ -1,0 +1,33 @@
+IF
+  See([PC])
+  NumberOfTimesTalkedTo(0)
+THEN
+  RESPONSE #100
+    Dialog([PC])
+    Wait(10)
+END
+
+IF
+  Global("FerthgilFight","LOCALS",0)
+  See([PC])
+  GlobalGT("FerthgDuergr","GLOBAL",5)
+THEN
+  RESPONSE #100
+    SetGlobal("FerthgilFight","LOCALS",1)
+    Dialog([PC])
+END
+
+IF
+  Detect([PC])
+  See([0.0.DUERGAR])
+THEN
+  RESPONSE #100
+    Attack([0.0.DUERGAR])
+END
+
+IF
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    AttackReevaluate(NearestEnemyOf(Myself),15)
+END
