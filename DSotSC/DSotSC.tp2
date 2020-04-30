@@ -1,16 +1,8 @@
-// Dark Side of the Sword Coast for BGT/EET
-// Original creator of DSotSC: CuChoinneach and his team
-// BGT version by SirBillyBob, updated by erebusant (up to version 215) and Turambar (v216)
-// BG:EE version by Solaufein
-// EET version and tp2 code revamp by K4thos
-// ITM/SPL/CRE balancing revision by Vlar
-// NPC suggestions for NPC balancing by WithinAmnesia
-// vanilla items and XP balancing by Manduran
-
 BACKUP ~DSotSC/backup~
-AUTHOR ~~
-VERSION ~v3.0 beta~
-README ~DSotSC/docs/[%LANGUAGE%]ReadMe-DSotSC.html~ ~DSotSC/docs/[english]ReadMe-DSotSC.html~
+//AUTHOR ~~
+SUPPORT ~http://www.shsforums.net/forum/202-dsotsc-bgt/~
+VERSION ~v3.3~ //
+README ~DSotSC/docs/readme.%LANGUAGE%.dsotsc.txt~ ~DSotSC/docs/readme.english.dsotsc.txt~
 AUTO_TRA ~DSotSC/language/%s/D~
 ASK_EVERY_COMPONENT
 
@@ -38,9 +30,10 @@ ALWAYS
 		INCLUDE ~DSotSC/lib/g3_bgt_cpmvars.tpa~
 		OUTER_SPRINT platform ~bgt~
 		OUTER_SPRINT engine ~vanilla~
-		OUTER_SPRINT Nashkel_door ~DOOR3704~ //used in ar3700.baf and megacut.baf
+		OUTER_SPRINT Nashkel_door ~DOOR4804~ //used in ar3700.baf and megacut.baf
 		OUTER_SPRINT NorthNashkelRoad_entrance ~EXIT3200~ //patching ARE
 		OUTER_SPRINT GibberlingMountains_entrance ~EXIT4600~ //patching ARE
+
 	END ELSE ACTION_IF GAME_IS ~eet~ BEGIN
 		INCLUDE ~DSotSC/lib/eet_cpmvars.tpa~
 		OUTER_SPRINT platform ~eet~
@@ -49,7 +42,8 @@ ALWAYS
 		OUTER_SPRINT NorthNashkelRoad_entrance ~EXIT4300~
 		OUTER_SPRINT GibberlingMountains_entrance ~EXIT5500~
 		OUTER_SET BG1AREA = IDS_OF_SYMBOL (~areatype~ ~BG1AREA~)
-	END
+
+		END
 
 	INCLUDE ~DSotSC/lib/macros.tpa~
 
@@ -67,7 +61,7 @@ ALWAYS
 				"castilian" => "CP1252"
 			END
 			ACTION_DEFINE_ARRAY charsetsReloadArray BEGIN setup soundsets journal END
-			ACTION_DEFINE_ARRAY charsetsNoConvertArray BEGIN worldmap setup-ee END
+			ACTION_DEFINE_ARRAY charsetsNoConvertArray BEGIN setup-ee END
 			LAF ~HANDLE_CHARSETS~
 				INT_VAR
 				infer_charsets = 0
@@ -97,18 +91,22 @@ LANGUAGE
 	~DSotSC/language/castilian/setup.tra~
 	~DSotSC/language/castilian/soundsets.tra~
 	~DSotSC/language/castilian/journal.tra~
-/*LANGUAGE
+LANGUAGE
+	~Italian (translation Ilot (rtt.altervista.org) in collaboration with Kelvan, reaper_cuts and Andariel (bgcommunity.forumfree.net) & Turambar)~
+	~italian~
+	~DSotSC/language/italian/prompts.tra~
+	~DSotSC/language/italian/setup.tra~
+	~DSotSC/language/italian/soundsets.tra~
+	~DSotSC/language/italian/journal.tra~
+/*
+LANGUAGE
 	~German (translation Leonard Watson & Jastey)~
 	~german~
 	~DSotSC/language/english/prompts.tra~
 	~DSotSC/language/german/setup.tra~
+	~DSotSC/language/english/soundsets.tra~
 	~DSotSC/language/german/journal.tra~
-LANGUAGE
-	~Italian (translation Ilot (rtt.altervista.org) in collaboration with Kelvan, reaper_cuts and Andariel (bgcommunity.forumfree.net) & Turambar)~
-	~italian~
-	~DSotSC/language/english/prompts.tra~
-	~DSotSC/language/italian/setup.tra~
-	~DSotSC/language/italian/journal.tra~
+
 LANGUAGE
 	~Polish (translation Black Dragon & Promilus)~
 	~polish~
@@ -121,7 +119,9 @@ LANGUAGE
 	~russian~
 	~DSotSC/language/english/prompts.tra~
 	~DSotSC/language/russian/setup.tra~
-	~DSotSC/language/russian/journal.tra~*/
+	~DSotSC/language/english/soundsets.tra~
+	~DSotSC/language/russian/journal.tra~
+*/
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
@@ -210,7 +210,7 @@ BUT_ONLY
 
 //future update:
 //OUTER_SET strref = RESOLVE_STR_REF (@40000)
-//@40000 = ~CÃºChoinneach refuse to part with his personal equipment.~
+//@40000 = ~CúChoinneach refuse to part with his personal equipment.~
 //DSMADDIE CUCHOINNEACH %strref% 3
 
 ACTION_IF FILE_EXISTS_IN_GAME ~item_use.2da~ BEGIN
@@ -1257,6 +1257,8 @@ COPY ~DSotSC/base/cre/dsbardo.cre~ ~override~
 	SAY NAME1 @2002
 	SAY NAME2 @2002
 	SAY BIO @20358
+	WRITE_ASCII 0x3c  ~BARDOL~ #8   // assign "large" portrait
+
 
 COPY ~DSotSC/base/cre/dsblane.cre~ ~override~
 	SAY NAME1 @2003
@@ -1269,6 +1271,7 @@ COPY ~DSotSC/base/cre/dsbub.cre~ ~override~
 	SAY NAME1 @2004
 	SAY NAME2 @2004
 	SAY BIO @20645
+	WRITE_ASCII 0x3c  ~DSBUBL~ #8   // assign "large" portrait
 
 COPY ~DSotSC/base/cre/dsclars.cre~ ~override~
 	SAY NAME1 @2005
@@ -1286,6 +1289,7 @@ COPY ~DSotSC/base/cre/dsconch.cre~ ~override~
 	SAY NAME1 @2008
 	SAY NAME2 @2008
 	SAY BIO @2046
+	WRITE_ASCII 0x3c  ~CONCHOL~ #8   // assign "large" portrait
 
 COPY ~DSotSC/base/cre/dscooshe.cre~ ~override~
 	SAY NAME1 @2047
@@ -1295,9 +1299,10 @@ COPY ~DSotSC/base/cre/dscucho.cre~ ~override~
 	~DSotSC/base/cre/dscucho2.cre~ ~override~
 	~DSotSC/base/cre/dscucho4.cre~ ~override~
 	~DSotSC/base/cre/dscucho6.cre~ ~override~
-	SAY NAME1 @2048
-	SAY NAME2 @2048
-	SAY BIO @2077
+	SAY NAME1 ~CuChoinneach~
+	SAY NAME2 ~CuChoinneach~
+	SAY BIO ~When asked about his past, CuCHOINNEACH sighs and looks off into the distance. You know very little about CuChoinneach and his shadow wolf. You know not where he comes from or where he is going to. He says very little and asks far less. For an elf, he harbors a dark side. He has lost all the normal lust for life that most elves have and seems focused on one thing: the destruction of Lord Daerthmac!~
+	WRITE_ASCII 0x3c  ~CUCHOINL~ #8   // assign "large" portrait
 
 COPY ~DSotSC/base/cre/dsdeazle.cre~ ~override~
 	SAY NAME1 @2079
@@ -1354,6 +1359,7 @@ COPY ~DSotSC/base/cre/dsferth.cre~ ~override~
 	SAY NAME1 @2091
 	SAY NAME2 @2091
 	SAY BIO @2133
+	WRITE_ASCII 0x3c  ~FERTHGL~ #8   // assign "large" portrait
 
 COPY ~DSotSC/base/cre/dsfeydo.cre~ ~override~
 	SAY NAME1 @2134
@@ -1448,6 +1454,7 @@ COPY ~DSotSC/base/cre/dsjetla.cre~ ~override~
 	SAY NAME1 @2163
 	SAY NAME2 @2163
 	SAY BIO @2202
+	WRITE_ASCII 0x3c  ~JETLAYAL~ #8   // assign "large" portrait
 
 COPY ~DSotSC/base/cre/dsjules.cre~ ~override~
 	SAY NAME1 @2203
@@ -1468,6 +1475,7 @@ COPY ~DSotSC/base/cre/dskeiri.cre~ ~override~
 	SAY NAME1 @2206
 	SAY NAME2 @2206
 	SAY BIO @2245
+	WRITE_ASCII 0x3c  ~KEIRIAL~ #8   // assign "large" portrait
 
 COPY ~DSotSC/base/cre/dskenb.cre~ ~override~
 	SAY NAME1 @2246
@@ -1565,6 +1573,7 @@ COPY ~DSotSC/base/cre/dsskeez.cre~ ~override~
 	SAY NAME1 @2261
 	SAY NAME2 @2261
 	SAY BIO @2286
+	WRITE_ASCII 0x3c  ~SKEEZRL~ #8   // assign "large" portrait
 
 COPY ~DSotSC/base/cre/dsspec.cre~ ~override~
 	SAY NAME1 @2287
@@ -1581,6 +1590,7 @@ COPY ~DSotSC/base/cre/dsthorf.cre~ ~override~
 	SAY NAME1 @2249
 	SAY NAME2 @2249
 	SAY BIO @21050
+	WRITE_ASCII 0x3c  ~THORFL~ #8   // assign "large" portrait
 
 COPY ~DSotSC/base/cre/dstorqui.cre~ ~override~
 	SAY NAME1 @2289
@@ -2003,18 +2013,18 @@ ACTION_IF GAME_IS ~eet~ BEGIN
 END
 
 /////                                                  \\\\\
-///// Decompressing and buffing                        \\\\\
+///// Decompressing and no biffing                        \\\\\
 /////                                                  \\\\\
 
-MKDIR ~DSotSC/biff~
+MKDIR //~DSotSC/biff~
 	~DSotSC/language/%LANGUAGE%/ogg~
 
 ACTION_IF GAME_IS ~eet~ BEGIN
 	MOVE ~DSotSC/base/bmp/ar4600sr.bmp~ ~DSotSC/base/bmp/bg5500sr.bmp~
-		~DSotSC/base/bmp/ar8900sr.bmp~ ~DSotSC/base/bmp/bg2400sr.bmp~
+	~DSotSC/base/bmp/ar8900sr.bmp~ ~DSotSC/base/bmp/bg2400sr.bmp~
 END ELSE ACTION_IF GAME_IS ~bgee~ BEGIN //not used
 	MOVE ~DSotSC/base/bmp/ar4600sr.bmp~ ~DSotSC/base/bmp/ar5500sr.bmp~
-		~DSotSC/base/bmp/ar8900sr.bmp~ ~DSotSC/base/bmp/ar2400sr.bmp~
+	~DSotSC/base/bmp/ar8900sr.bmp~ ~DSotSC/base/bmp/ar2400sr.bmp~
 END
 
 ACTION_BASH_FOR ~DSotSC/base/tis~ ~^.+\.tbc$~ BEGIN
@@ -2026,7 +2036,7 @@ LAF HANDLE_AUDIO
     audio_path = ~DSotSC/base/ogg~
     oggdec_path = ~DSotSC/bin/win32~
     sox_path = ~DSotSC/bin/osx~
-	output_path = ~DSotSC/biff~
+	output_path =  ~override~ //~DSotSC/biff~
 END
 
 ACTION_BASH_FOR ~DSotSC/language/english/ogg~ ~^.+\.ogg$~ BEGIN
@@ -2040,8 +2050,11 @@ LAF HANDLE_AUDIO
 	audio_path = EVAL ~DSotSC/language/%LANGUAGE%/ogg~
 	oggdec_path = ~DSotSC/bin/win32~
 	sox_path = ~DSotSC/bin/osx~
-	output_path = ~DSotSC/biff~
+	output_path = ~override~ //~DSotSC/biff~
 END
+
+/* Deactivated biffing because it caused problems with modding iOS devices
+also for BGT: for Megamod installs, player can use General Biffing if wanted.
 
 PRINT ~Biffing files....~
 
@@ -2053,6 +2066,14 @@ MAKE_BIFF ~DSotSC~ BEGIN
 	~DSotSC/base/portraits/%engine%~ ~^.*$~
 	~DSotSC/base/portraits/l~ ~^.*$~
 END
+*/
+
+
+COPY	~DSotSC/base/bam~ ~override~
+COPY	~DSotSC/base/bmp~ ~override~
+COPY	~DSotSC/base/mos/%engine%~ ~override~
+COPY	~DSotSC/base/portraits/%engine%~ ~override~
+COPY	~DSotSC/base/portraits/l~ ~override~
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
@@ -2064,7 +2085,7 @@ END
 
 BEGIN ~DSotSC Wizard spells~
 REQUIRE_PREDICATE GAME_IS ~bgt eet~ ~This mod is not compatible with your game~
-REQUIRE_PREDICATE MOD_IS_INSTALLED ~DSotSC/DSotSC.tp2~ ~0~ ~Dark Side of the Sword Coast is not installed~
+REQUIRE_COMPONENT ~DSotSC/DSotSC.tp2~ ~0~ ~Dark Side of the Sword Coast is not installed~
 
 //add spells (type: 1 = sppr, 2 = spwi, 3 = spin, 4 = spcl)
 ADD_SPELL ~DSotSC/base/spl/dsspwi11.spl~ 2 1 ~WIZARD_ORB_OF_AIR~
@@ -2294,7 +2315,7 @@ COPY_EXISTING ~dsmortus.cre~ ~override~
 
 BEGIN ~DSotSC Priest spells~
 REQUIRE_PREDICATE GAME_IS ~bgt eet~ ~This mod is not compatible with your game~
-REQUIRE_PREDICATE MOD_IS_INSTALLED ~DSotSC/DSotSC.tp2~ ~0~ ~Dark Side of the Sword Coast is not installed~
+REQUIRE_COMPONENT ~DSotSC/DSotSC.tp2~ ~0~ ~Dark Side of the Sword Coast is not installed~
 
 //add spells (type: 1 = sppr, 2 = spwi, 3 = spin, 4 = spcl)
 
@@ -2401,7 +2422,7 @@ COPY_EXISTING ~dsarchdr.cre~ ~override~
 
 BEGIN ~More common encounters in vanilla areas~
 REQUIRE_PREDICATE GAME_IS ~bgt eet~ ~This mod is not compatible with your game~
-REQUIRE_PREDICATE MOD_IS_INSTALLED ~DSotSC/DSotSC.tp2~ ~0~ ~Dark Side of the Sword Coast is not installed~
+REQUIRE_COMPONENT ~DSotSC/DSotSC.tp2~ ~0~ ~Dark Side of the Sword Coast is not installed~
 
 //install creatures
 ACTION_IF NOT FILE_EXISTS_IN_GAME ~kobold02.cre~ BEGIN
@@ -2491,7 +2512,7 @@ EXTEND_BOTTOM ~%LionsWay_BCS%.bcs~ ~DSotSC/modify/bcs/morestooges/ar6600.baf~ EV
 
 BEGIN ~Distribute DSotSC items also in vanilla content~
 REQUIRE_PREDICATE GAME_IS ~bgt eet~ ~This mod is not compatible with your game~
-REQUIRE_PREDICATE MOD_IS_INSTALLED ~DSotSC/DSotSC.tp2~ ~0~ ~Dark Side of the Sword Coast is not installed~
+REQUIRE_COMPONENT ~DSotSC/DSotSC.tp2~ ~0~ ~Dark Side of the Sword Coast is not installed~
 
 // Modify existing creatures
 
@@ -2934,6 +2955,14 @@ COPY_EXISTING ~taerum.sto~ ~override~
 	ADD_STORE_ITEM ~HELM06~ #0 #0 #0 ~IDENTIFIED~ #1
 	ADD_STORE_ITEM ~SW1H20~ #0 #0 #0 ~IDENTIFIED~ #5
 	ADD_STORE_ITEM ~SW1H22~ #0 #0 #0 ~IDENTIFIED~ #4
+
+/* NTotSC should be installed *after* DSotSC 
+/* add holy water to temple of Helm in Northern Citadel */
+COPY_EXISTING ~ntprihel.sto~ ~override~
+	READ_BYTE "0x10" "buy_flags"
+	WRITE_BYTE "0x10" ("%buy_flags%" + 0x02)
+	ADD_STORE_ITEM ~DSPOTN01~ #0 #0 #0 ~IDENTIFIED~ #9
+*/
 
 COPY_EXISTING ~tem0131.sto~ ~override~
 	READ_BYTE "0x10" "buy_flags"
